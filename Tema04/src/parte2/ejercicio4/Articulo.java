@@ -28,7 +28,7 @@ public class Articulo {
 		if (IVA > 0) {
 			this.IVA = IVA;
 		}
-		if (cuantosQuedan > 0) {
+		if (cuantosQuedan >= 0) {
 			this.cuantosQuedan = cuantosQuedan;
 		}
 
