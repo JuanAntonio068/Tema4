@@ -3,7 +3,7 @@ package parte5.ejercicio1;
 public class CuentaCorriente {
 
 	// Atributo del dni del titular de la cuenta
-	private int DNI;
+	private final String DNI;
 
 	// Atributo del nombre
 	private String nombre;
@@ -19,7 +19,7 @@ public class CuentaCorriente {
 	}
 
 	// Creamos los constructores para la clase CuentaCorriente
-	public CuentaCorriente(int DNI, double saldo) {
+	public CuentaCorriente(String DNI, double saldo) {
 		this.DNI = DNI;
 
 		if (saldo >= 0) {
@@ -27,7 +27,7 @@ public class CuentaCorriente {
 		}
 	}
 
-	public CuentaCorriente(int DNI, String nombre, double saldo) {
+	public CuentaCorriente(String DNI, String nombre, double saldo) {
 		this.DNI = DNI;
 
 		if (nombre != null && !nombre.isBlank()) {
@@ -39,7 +39,7 @@ public class CuentaCorriente {
 		}
 	}
 
-	public CuentaCorriente(int DNI, String nombre, double saldo, String nacion) {
+	public CuentaCorriente(String DNI, String nombre, double saldo, String nacion) {
 		this.DNI = DNI;
 
 		if (nombre != null && !nombre.isBlank()) {
@@ -78,11 +78,11 @@ public class CuentaCorriente {
 		return nacion;
 	}
 
-	public void setNacion(Nacionalidad nacion) {
-		this.nacion = nacion;
+	public void setNacion(String nacion) {
+		this.nacion = Nacionalidad.valueOf(nacion);
 	}
 
-	public int getDNI() {
+	public String getDNI() {
 		return DNI;
 	}
 
@@ -104,7 +104,51 @@ public class CuentaCorriente {
 		}
 
 		return verificar;
+
 	}
-	
-	
+
+	/**
+	 * Función para ingresar dinero
+	 * 
+	 * @param cantidad El dinero a ingresar
+	 * @return Devuelve true si se ha podido realizar la operación y false si no
+	 */
+	public boolean ingresarDinero(int cantidad) {
+		boolean verificar;
+
+		if (cantidad > 0) {
+			this.saldo += cantidad;
+			verificar = true;
+		} else {
+			verificar = false;
+		}
+		return verificar;
+	}
+
+	/**
+	 * Función para imprimir los datos
+	 */
+	public String toString() {
+		String res;
+
+		res = "DNI: " + this.DNI + "\n";
+		res += "Nombre:" + this.nombre + "\n";
+		res += "Saldo:" + this.saldo + "\n";
+		res += "Nacionalidad:" + this.nacion + "\n";
+
+		return res;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		CuentaCorriente cc2 = (CuentaCorriente) obj;
+
+		boolean res = false;
+
+		if (this.DNI.equals(cc2.DNI) && this.nombre.equals(cc2.nombre)) {
+			res = true;
+		}
+		return res;
+	}
+
 }
